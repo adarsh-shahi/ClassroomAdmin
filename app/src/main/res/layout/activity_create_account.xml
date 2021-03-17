@@ -62,22 +62,6 @@
                     android:layout_marginLeft="20dp"
                     android:background="@color/black"/>
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Username"
-            android:id="@+id/enterusernameEt"
-            android:inputType="text"
-            android:maxLines="1"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/black"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/edit_text_border"
-            android:textColorHint="@color/grey"
-            android:layout_marginRight="10dp"
-            android:padding="10dp"
-            android:textSize="20sp"/>
-
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
