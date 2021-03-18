@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.spark.submitbutton.SubmitButton;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseUser currentUserId;
     private TextView createAccountTv;
     private TextView existingAccount;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         createAccountTv=findViewById(R.id.createAccount);
         existingAccount=findViewById(R.id.existingAccount);
+
 
         createAccountTv.setOnClickListener(new View.OnClickListener() {
             @Override

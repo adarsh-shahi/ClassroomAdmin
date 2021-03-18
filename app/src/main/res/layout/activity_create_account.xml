@@ -200,6 +200,59 @@
 
         </androidx.cardview.widget.CardView>
 
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            app:cardCornerRadius="15dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardUseCompatPadding="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:elevation="15dp"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Generate Password"
+                android:id="@+id/enterPass1"
+                android:inputType="text"
+                android:maxLines="1"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/black"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/edit_text_border"
+                android:textColorHint="@color/grey"
+                android:layout_marginRight="10dp"
+                android:padding="10dp"
+                android:textSize="20sp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Retype Password"
+                android:id="@+id/enterPass2"
+                android:inputType="text"
+                android:maxLines="1"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/black"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/edit_text_border"
+                android:textColorHint="@color/grey"
+                android:layout_marginRight="10dp"
+                android:padding="10dp"
+                android:textSize="20sp"/>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
 
         <com.spark.submitbutton.SubmitButton
             android:layout_width="match_parent"

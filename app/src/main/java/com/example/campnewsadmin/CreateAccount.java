@@ -32,7 +32,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CreateAccount extends AppCompatActivity {
 
-    private EditText fullName , DOB , email , collegeId , enroll , roll;
+    private EditText fullName , DOB , email , collegeId , enroll , roll , pass1 , pass2;
     private CircleImageView profilePic;
     private Uri imageUri;
     private SubmitButton submitButton;
@@ -42,6 +42,7 @@ public class CreateAccount extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser user;
     private String userId;
+    private boolean selectPic=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +64,8 @@ public class CreateAccount extends AppCompatActivity {
         roll=findViewById(R.id.enterRollNo);
         profilePic=findViewById(R.id.profile_image);
         submitButton=findViewById(R.id.createAccount_button);
+        pass1=findViewById(R.id.enterPass1);
+        pass2=findViewById(R.id.enterPass2);
 
         profilePic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,97 +80,90 @@ public class CreateAccount extends AppCompatActivity {
                 uploadDetailsToDB();
             }
         });
-
-
-
-
-
     }
 
     private void uploadDetailsToDB() {
-
-
-
-
         String mail = email.getText().toString();
         String fullname = fullName.getText().toString();
         String dob = DOB.getText().toString();
         String collegeid = collegeId.getText().toString();
         String enrollNo = enroll.getText().toString();
         String rollNo = roll.getText().toString();
+        String password1 = pass1.getText().toString();
+        String password2 = pass2.getText().toString();
 
-        if(TextUtils.isEmpty(mail) || TextUtils.isEmpty(fullname) || TextUtils.isEmpty(dob) || TextUtils.isEmpty(collegeid) || TextUtils.isEmpty(enrollNo) || TextUtils.isEmpty(rollNo) || imageUri.equals("")){
+        if(TextUtils.isEmpty(mail) || TextUtils.isEmpty(fullname) || TextUtils.isEmpty(dob) || TextUtils.isEmpty(collegeid) || TextUtils.isEmpty(enrollNo) || TextUtils.isEmpty(rollNo) || imageUri.equals("") || TextUtils.isEmpty(password1) || TextUtils.isEmpty(password2)){
             Toast.makeText(CreateAccount.this, "Please enter all the details", Toast.LENGTH_SHORT).show();
         }
         else {
+            if (!password1.equals(password2)) {
+                Toast.makeText(CreateAccount.this, "Password doesn't match", Toast.LENGTH_SHORT).show();
+                pass1.requestFocus();
+            } else {
 
-            final ProgressDialog pd = new ProgressDialog(CreateAccount.this);
-            pd.setTitle("Creating New Account...");
-            pd.show();
+                final ProgressDialog pd = new ProgressDialog(CreateAccount.this);
+                pd.setTitle("Creating New Account...");
+                pd.show();
 
-            final String randomKey = UUID.randomUUID().toString();
-            StorageReference riversRef = storageReference.child("images/"+fullname+"_"+randomKey);
-            riversRef.putFile(imageUri)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                final String randomKey = UUID.randomUUID().toString();
+                StorageReference riversRef = storageReference.child("images/" + fullname + "_" + randomKey);
+                riversRef.putFile(imageUri)
+                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                            riversRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    String imageUrl = uri.toString();
+                                riversRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        String imageUrl = uri.toString();
 
-                                    Map<String , Object> note = new HashMap<>();
-                                    note.put("name",fullname);
-                                    note.put("dob",dob);
-                                    note.put("collegecode",collegeid);
-                                    note.put("enroll",enrollNo);
-                                    note.put("roll",rollNo);
-                                    note.put("profilepic",imageUrl);
-                                    note.put("userid",userId);
-                                    note.put("mail",mail);
+                                        Map<String, Object> note = new HashMap<>();
+                                        note.put("name", fullname);
+                                        note.put("dob", dob);
+                                        note.put("collegecode", collegeid);
+                                        note.put("enroll", enrollNo);
+                                        note.put("roll", rollNo);
+                                        note.put("profilepic", imageUrl);
+                                        note.put("userid", userId);
+                                        note.put("mail", mail);
 
 
-                                    db.collection("Users").document(mail).set(note).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            pd.dismiss();
-                                            startActivity(new Intent(CreateAccount.this,MainActivity.class));
+                                        db.collection("Users").document(mail).set(note).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                pd.dismiss();
+                                                startActivity(new Intent(CreateAccount.this, MainActivity.class));
 
-                                        }
-                                    }).addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
 
-                                        }
-                                    });
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
+                                            }
+                                        });
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
 
-                                }
-                            });
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    pd.dismiss();
-                }
-            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                    double progressPercentage = (100.00* snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
-                    pd.setMessage((int) progressPercentage+"%");
-                }
-            });
+                                    }
+                                });
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        pd.dismiss();
+                    }
+                }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                        double progressPercentage = (100.00 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
+                        pd.setMessage((int) progressPercentage + "%");
+                    }
+                });
+            }
+
         }
-
-
-
-
-
-
 
 
 
@@ -187,7 +183,7 @@ public class CreateAccount extends AppCompatActivity {
         if(requestCode==1 && resultCode==RESULT_OK && data!=null && data.getData()!=null){
             imageUri=data.getData();
             profilePic.setImageURI(imageUri);
-           // uploadPic();
+           selectPic=true;
         }
     }
 
