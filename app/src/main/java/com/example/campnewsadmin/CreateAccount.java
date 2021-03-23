@@ -91,8 +91,9 @@ public class CreateAccount extends AppCompatActivity {
         String rollNo = roll.getText().toString();
         String password1 = pass1.getText().toString();
         String password2 = pass2.getText().toString();
+        imageUri = Uri.parse("android.resource://com.example.campnewsadmin/drawable/edit_image_logo");
 
-        if(TextUtils.isEmpty(mail) || TextUtils.isEmpty(fullname) || TextUtils.isEmpty(dob) || TextUtils.isEmpty(collegeid) || TextUtils.isEmpty(enrollNo) || TextUtils.isEmpty(rollNo) || imageUri.equals("") || TextUtils.isEmpty(password1) || TextUtils.isEmpty(password2)){
+        if(TextUtils.isEmpty(mail) || TextUtils.isEmpty(fullname) || TextUtils.isEmpty(dob) || TextUtils.isEmpty(collegeid) || TextUtils.isEmpty(enrollNo) || TextUtils.isEmpty(rollNo) || TextUtils.isEmpty(password1) || TextUtils.isEmpty(password2)){
             Toast.makeText(CreateAccount.this, "Please enter all the details", Toast.LENGTH_SHORT).show();
         }
         else {
@@ -126,6 +127,7 @@ public class CreateAccount extends AppCompatActivity {
                                         note.put("profilepic", imageUrl);
                                         note.put("userid", userId);
                                         note.put("mail", mail);
+                                        note.put("password",password1);
 
 
                                         db.collection("Users").document(mail).set(note).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -162,12 +164,7 @@ public class CreateAccount extends AppCompatActivity {
                     }
                 });
             }
-
         }
-
-
-
-
     }
 
     private void chooseProfilePic() {

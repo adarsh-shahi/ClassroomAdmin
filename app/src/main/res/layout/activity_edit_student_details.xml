@@ -28,12 +28,12 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                app:cardCornerRadius="15dp"
+                app:cardCornerRadius="20dp"
                 app:cardBackgroundColor="@color/white"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 app:cardUseCompatPadding="true"
-                android:elevation="15dp"
+                android:elevation="20dp"
                 android:layout_height="wrap_content">
 
                 <LinearLayout
@@ -51,8 +51,7 @@
                         android:drawablePadding="5dp"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="10dp"
-                        android:text="Personal Details"
-                        app:drawableLeftCompat="@drawable/ic_person" />
+                        android:text="Personal Details" />
 
                     <View
                         android:layout_width="match_parent"
@@ -116,12 +115,12 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                app:cardCornerRadius="15dp"
+                app:cardCornerRadius="20dp"
                 app:cardBackgroundColor="@color/white"
                 app:cardUseCompatPadding="true"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:elevation="15dp"
+                android:elevation="20dp"
                 android:layout_height="wrap_content">
 
                 <LinearLayout
@@ -138,8 +137,7 @@
                         android:gravity="center"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="10dp"
-                        android:text="College Details"
-                        app:drawableLeftCompat="@drawable/ic_baseline_school_24" />
+                        android:text="College Details"/>
 
                     <View
                         android:layout_width="match_parent"

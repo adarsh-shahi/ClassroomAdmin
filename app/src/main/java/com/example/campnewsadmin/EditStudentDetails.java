@@ -209,7 +209,7 @@ public class EditStudentDetails extends AppCompatActivity {
                 roll.setText(value.getString("roll"));
                 name.setText(value.getString("name"));
                 try {
-                    Picasso.get().load(value.getString("profilepic")).placeholder(R.drawable.ic_default_profile1_blue).into(profile);
+                    Picasso.get().load(value.getString("profilepic")).placeholder(R.drawable.edit_image_logo).into(profile);
                 }
                 catch (Exception e) {
                 }
