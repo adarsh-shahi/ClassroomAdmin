@@ -6,6 +6,7 @@ public class Notes {
     private String name;
     private String profilepic;
     private String mail;
+    private String subject;
 
     public Notes(String roll, String name, String profilepic, String mail) {
         this.roll = roll;

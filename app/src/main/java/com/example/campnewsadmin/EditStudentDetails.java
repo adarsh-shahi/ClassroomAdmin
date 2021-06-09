@@ -99,6 +99,9 @@ public class EditStudentDetails extends AppCompatActivity {
         }
     }
 
+
+
+
     private void uploadPic() {
 
         String mailString = mail.getText().toString();
